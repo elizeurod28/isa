@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Isa & Elizeu · Nossa História</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .memory-card {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: #0c0c14;
+            border-radius: 2rem;
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(155, 77, 255, 0.3);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.01);
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #9b2eff 0%, #2b6eff 100%);
+            padding: 2rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-gradient::before {
+            content: "✦";
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            right: -20px;
+            bottom: -30px;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+
+        .header-gradient h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-gradient p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* SEÇÃO DE FOTOS */
+        .photos-section {
+            padding: 2rem 2rem 1rem 2rem;
+            background: #0a0a10;
+            border-bottom: 1px solid #1f1a2e;
+        }
+
+        .photos-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e2dcff;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .photos-title span {
+            background: #1f1a2e;
+            padding: 4px 14px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            color: #b794ff;
+        }
+
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .photo-frame {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            background: #0f0f18;
+            border-radius: 28px;
+            padding: 1.2rem 0.8rem 0.8rem;
+            box-shadow: 0 12px 22px -8px rgba(0, 0, 0, 0.6);
+            transition: all 0.2s;
+            border: 1px solid #29223c;
+        }
+
+        .photo-frame:hover {
+            transform: translateY(-5px);
+            border-color: #9b4dff;
+        }
+
+        .photo-placeholder {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            background: #13101f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+            border: 2px solid #3a2b5e;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-caption {
+            margin-top: 14px;
+            font-weight: 600;
+            color: #c9baff;
+            background: #181425;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+
+        .note-text {
+            font-size: 0.7rem;
+            color: #7a6aa8;
+            text-align: center;
+            margin-top: 20px;
+            background: #0e0b17;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 6px 18px;
+            border-radius: 60px;
+            border: 0.5px solid #292246;
+        }
+
+        /* ÁREA DA MENSAGEM FIXA (sem textarea, sem botão) */
+        .message-area {
+            padding: 2rem 2rem 2rem;
+            background: #0a0a0f;
+        }
+
+        .message-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #d9ceff;
+            margin-bottom: 20px;
+            border-left: 5px solid #9b4dff;
+            padding-left: 18px;
+        }
+
+        .message-box {
+            background: #0c0c14;
+            border-radius: 28px;
+            padding: 1.8rem;
+            border: 1px solid #2a2350;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Estilo da mensagem fixa */
+        .fixed-message {
+            color: #ddd4ff;
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-style: normal;
+        }
+
+        .fixed-message p {
+            margin-bottom: 1rem;
+        }
+
+        .message-signature {
+            margin-top: 1.5rem;
+            text-align: right;
+            color: #b186ff;
+            font-style: italic;
+            border-top: 1px solid #2a2350;
+            padding-top: 1rem;
+        }
+
+        footer {
+            background: #06050a;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.75rem;
+            color: #6d5a9c;
+            border-top: 1px solid #1e1930;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            .header-gradient h1 {
+                font-size: 1.8rem;
+            }
+            .photo-grid {
+                gap: 1.2rem;
+            }
+            .photo-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+            .message-area {
+                padding: 1.5rem;
+            }
+            .message-box {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="memory-card">
+    <div class="header-gradient">
+        <h1>
+            💙 Isa & Elizeu 💜
+        </h1>
+        <p>alguns amores são eternos mesmo sem final feliz</p>
+    </div>
+
+    <!-- SEÇÃO DE FOTOS -->
+    <div class="photos-section">
+        <div class="photos-title">
+            📸 nossas memórias em foto
+            <span>💙💜</span>
+        </div>
+        <div class="photo-grid">
+            <!-- FOTO 1: Isabelly -->
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <img src="https://i.ibb.co/fV16xbHR/20260325-165827.jpg" alt="Isabelly 💙">
+                </div>
+                <div class="photo-caption">💙 O dia do trote de personagem que voce foi de super choque dia 25 de março</div>
+            </div>
+            <!-- FOTO 2: Você -->
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <img src="https://i.ibb.co/mFtq39bC/Whats-App-Image-2026-04-15-at-21-57-16.jpg" alt="Você 💜">
+                </div>
+                <div class="photo-caption">💜 Esse momento eu estava me sentindo tão feliz me sentindo uma criança feliz</div>
+            </div>
+            <!-- FOTO 3: Vocês dois juntos -->
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <img src="https://i.ibb.co/RkJBHYKV/Whats-App-Image-2026-04-15-at-21-57-02.jpg" alt="Nós dois 💜💙">
+                </div>
+                <div class="photo-caption">💜💙 Sera nossa ultima foto juntos?</div>
+            </div>
+        </div>
+        <div class="note-text">
+            ✨ fotos que eu vou guardar comigo ✨
+        </div>
+    </div>
+
+    <!-- ÁREA DA MENSAGEM FIXA (ESCREVA SUA MENSAGEM AQUI DENTRO) -->
+    <div class="message-area">
+        <div class="message-label">
+            💌 Minha mensagem para você
+        </div>
+        <div class="message-box">
+            <div class="fixed-message">
+                <!-- ⬇⬇⬇⬇⬇ ESCREVA SUA MENSAGEM AQUI ⬇⬇⬇⬇⬇ -->
+                 <p>LEIA COM A MINHA VOZ</p>
+            <p>Isa, Mesmo que o amor tenha mudado de forma, você sempre vai ter um 
+Lugarzinho guardado aqui no meu coração. Não apago um segundo do que a gente viveu.
+Apesar de ter sido tão pouco que agente passou junto, 
+aproveitaria mais se eu soubesse que iria acabar.
+Os momentos que a gente riu, até os silêncios tudo isso ficou em mim.
+Desejo que você seja muito feliz, de verdade.
+Encontre alguém que te faça sorrir mais do que eu tentei fazer.
+Não deu certo, mas foi lindo. E eu não trocaria nada.
+Cuida de você, Isa. O mundo lá fora é grande, e você merece tudo de bom.
+Quero que você me perdoe pelas vezes que eu fiz voce chorar por minha culpa.
+Pelas noites mal dormidas por causa de mim
+Eu não era perfeito, errei, e carrego isso comigo. Mas quero que saiba que
+Nunca foi por mal. Como eu te disse muitas vezes não sabia
+Lidar com meus próprios sentimentos as vezes.
+Se eu pudesse voltar atrás, eu teria feito melhor Teria abraçado mais. 
+Teria dito eu te amo mais vezes. Teria cuidado melhor de você e de nós.
+Mas o tempo não volta. E a gente aprende com o que perde.
+Obrigado por cada sorriso que você me deu, mesmo nos dias em que eu não merecia.
+Obrigado por ter escolhido ficar ao meu lado enquanto durou.
+Você me ensinou o que é amar mesmo de verdade apesar de qualquer coisa
+Espero que um dia você olhe pra trás e lembre de mim com um sorriso, não com mágoa.
+E que encontre um amor que te faça se sentir completa todos os dias 
+O tipo de amor que eu queria ter sido capaz de te dar, mas não consegui.
+Você merece ser feliz Isa. Mais do que qualquer coisa.
+Vai em paz. Se voce me pegar te olhando pensa que é eu lembrando das nossa lembranças boas
+E ainda vou lembrar do nosso primeiro beijinho que foi no dia 02/03/2026 
+E vou lembrar do nosso ultimo que foi enfrente a sinuelo e nosso abraço
+E voce me chamando de bb
+Com muito carinho 
+Elizeu 💜💙
+
+            </p>
+        
+            </div>
+            <div class="message-signature">
+                Com carinho,<br>
+                Elizeu 💜💙
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        💜💙 Nossa história não se apaga, ela vira estrela.
+    </footer>
+</div>
+
+<!-- 
+    INSTRUÇÕES PARA VOCÊ EDITAR A MENSAGEM:
+    
+    A mensagem fica dentro da <div class="fixed-message">. 
+    Você pode escrever o que quiser ali, usando <p> para cada parágrafo.
+    
+    Exemplo:
+    <p>Texto do primeiro parágrafo</p>
+    <p>Texto do segundo parágrafo</p>
+    
+    Pode usar emojis, quebras de linha, etc. Tudo fica bonito!
+    
+    Para entregar: salve como "isabelly.html" e coloque num pendrive, e-mail ou hospede.
+    Escreva num papel o endereço onde ela vai encontrar o arquivo.
+    
+    💜💙 Desejo tudo de bom pra vocês.
+-->
+</body>
+</html>
